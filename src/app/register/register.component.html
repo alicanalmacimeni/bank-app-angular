@@ -1,0 +1,13 @@
+<div class="row justify-content-center">
+    <div class="col-4">
+        <h3 class="text-center mt-3">Kayıt Ol</h3>
+        <form (submit)="registerUser($event)" class="form-signin mt-5">
+            <input type="text" placeholder="Username" name="username" class="form-control">
+            <input type="password" placeholder="Password" name="password" class="form-control">
+            <button class="btn btn-lg btn-primary btn-block mt-3" type="submit">Kayıt Ol</button>
+        </form>
+
+        <button routerLink="/login" class="btn btn-lg btn-primary btn-block mt-3">Giriş Yap</button>
+        <h4 *ngIf="mesaj">{{mesaj}}</h4>
+    </div>
+</div>

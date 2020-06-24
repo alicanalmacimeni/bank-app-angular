@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "bank-app"
+    }
+  },
+  "defaultProject": "bank-app",
+  "cli": {
+    "analytics": false
+  }
 }
