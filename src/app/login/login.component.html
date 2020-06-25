@@ -6,7 +6,8 @@
             <input type="password" placeholder="Password" name="password" class="form-control">
             <button class="btn btn-lg btn-primary btn-block mt-3" type="submit">Giriş Yap</button>
         </form>
+        <h4 *ngIf="mesaj">{{mesaj}}</h4>
 
-        <button routerLink="/register" class="btn btn-lg btn-primary btn-block mt-3">Kayıt Ol</button>
+        <button routerLink="/register" class="btn btn-md btn-primary btn-block mt-3">Kayıt Ol</button>
     </div>
 </div>

@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-
+  mesaj = "";
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
@@ -22,9 +22,11 @@ export class LoginComponent implements OnInit {
       password: e.target.password.value
     }
 
-    this.authService.loginUser(user).then(val => {
-      if(val){
+    this.authService.loginUser(user).then((val: any) => {
+      if (val) {
         this.router.navigate(['/home']);
+      } else {
+        this.mesaj = "Kullanıcı adı veya şifre hatalı"
       }
     })
   }

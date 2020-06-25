@@ -32,13 +32,17 @@ export class AuthService {
     })
   }
 
-  async loginUser(data) {
-    let user = await this.table.where("username").equals(data.username).first()
-    if (user.password === data.password) {
-      localStorage.setItem("user", user.username);
-      return true;
-    }
-    return false;
+  loginUser(data) {
+    return this.table.where("username").equals(data.username).first(user => {
+      if (user.password === data.password) {
+        localStorage.setItem("user", JSON.stringify(user));
+        return true;
+      } else {
+        return false;
+      }
+    }).catch(err => {
+      return false;
+    })
   }
 
 }
