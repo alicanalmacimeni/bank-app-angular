@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import Dexie from 'dexie';
-import { DexieService } from './core/dexie.service';
+import { DexieService } from '../core/dexie.service';
 
 export interface User {
   username: string;

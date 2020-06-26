@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { Hesap, HesapService } from '../hesap.service';
-
+import { Hesap, HesapService } from '../services/hesap.service';
 
 @Component({
   selector: 'app-hesaplar',
@@ -43,16 +42,21 @@ export class HesaplarComponent implements OnInit {
     let user = JSON.parse(localStorage.getItem("user"));
     let todayDate: Date = new Date();
     let hesap_no = this.hesapService.hesapNoOlustur();
-    
+
+    let hesap_aktar: number = +(e.target.hesapAktar || 1).value
+
     const hesap: Hesap = {
       kullanici_id: user.id,
       hesap_adi: e.target.hesapAdi.value,
-      acilis_tutari: e.target.acilis.value,
+      toplam_tutar: +e.target.acilis.value,
       para_birimi: e.target.paraBirimi.value,
       hesap_no: hesap_no,
       created_at: todayDate
     };
-    this.hesapService.hesapEkle(hesap)
+
+    this.hesapService.hesapEkle(hesap, hesap_aktar).then(res => {
+      this.ngOnInit();
+    })
   }
 
 }

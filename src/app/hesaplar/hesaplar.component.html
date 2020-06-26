@@ -1,73 +1,94 @@
-<div class="wrapper wrapper-content">
-    <div class="col-12">
-        <div class="row justify-content-center">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-header">
-                        <p>Hesapları kullanabilmeniz için öncelikle hesap oluşturun.</p>
-                        <button class="btn btn-primary" (click)="open(content)">Hesap Oluşturun</button>
-                    </div>
-                    <div class="card-body ">
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Hesap Adı</th>
-                                    <th scope="col">Hesap Numarası</th>
-                                    <th scope="col">Toplam Tutar</th>
-                                    <th scope="col">Para Birimi</th>
-                                    <th scope="col">Oluşturulma Tarihi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let hesap of hesaplar; let i=index">
-                                    <th scope="row">{{i+1}}</th>
-                                    <td>{{hesap.hesap_adi}}</td>
-                                    <td>{{hesap.hesap_no}}</td>
-                                    <td>{{hesap.acilis_tutari}}</td>
-                                    <td>{{hesap.para_birimi}}</td>
-                                    <td>{{ hesap.created_at | date: 'dd/MM/yy, HH:mm' }}</td>
-                                </tr>
-                            </tbody>
-                        </table>
+<div class="d-flex gray-bg" id="wrapper">
+    <app-sidebar></app-sidebar>
+
+    <div class="wrapper wrapper-content">
+        <div class="col-12">
+            <div class="row justify-content-center">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <button class="btn btn-primary" (click)="open(content)">Hesap Oluşturun</button>
+                        </div>
+                        <div class="card-body">
+                            <ng-template #elseBlock>Hesap Listesini Görebilmek için Öncelikle Hesap Oluşturmalısınız.
+                            </ng-template>
+                            <table *ngIf="hesaplar.length > 0; else elseBlock" class=" table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Hesap Adı</th>
+                                        <th scope="col">Hesap Numarası</th>
+                                        <th scope="col">Toplam Tutar</th>
+                                        <th scope="col">Para Birimi</th>
+                                        <th scope="col">Oluşturulma Tarihi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let hesap of hesaplar; let i=index">
+                                        <th scope="row">{{i+1}}</th>
+                                        <td>
+                                            <a [routerLink]="['/hesap-detay', hesap.id]"> {{hesap.hesap_adi}}</a>
+                                        </td>
+                                        <td>{{hesap.hesap_no}}</td>
+                                        <td>{{hesap.toplam_tutar}}</td>
+                                        <td>{{hesap.para_birimi}}</td>
+                                        <td>{{ hesap.created_at | date: 'HH:mm dd/MM/yyyy' }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <ng-template #content let-modal>
+            <div class="modal-header">
+                <h4 class="modal-title" id="modal-basic-title">Hesap Açma</h4>
+                <button type="button" class="btn btn-light" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form (submit)="hesapEkle($event)">
+                    <div class="form-group">
+                        <label for="hesap-adi">Hesap Adı:</label>
+                        <input id="hesap-adi" name="hesapAdi" class="form-control" placeholder="Hesap adı giriniz">
+                    </div>
+                    <div class="form-group">
+                        <label for="hesap-acilis">Hesap Açılış Tutarı:</label>
+
+                        <div *ngIf="hesaplar.length > 0; then thenBlock else elseBlock"></div>
+                        <ng-template #thenBlock>
+                            <input id="hesap-acilis" name="acilis" class="form-control"
+                                placeholder="Hesap açılış tutarı giriniz">
+                        </ng-template>
+                        <ng-template #elseBlock>
+                            <input id="hesap-acilis" name="acilis" class="form-control" value="10000" disabled>
+                        </ng-template>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="sel1">Para Birimi:</label>
+                        <select name="paraBirimi" class="form-control" id="sel1">
+                            <option>TL</option>
+                            <option>$</option>
+                            <option>€</option>
+                            <option>Altın</option>
+                        </select>
+                    </div>
+                    <div *ngIf="hesaplar.length > 0" class="form-group">
+                        <label for="sel1">Aktarılacak Hesap:</label>
+                        <select name="hesapAktar" class="form-control" id="sel2">
+                            <option *ngFor="let hesap of hesaplar" value="{{hesap.id}}">{{hesap.hesap_adi}}</option>
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-outline-success">Kaydet</button>
+                    </div>
+                </form>
+            </div>
+
+        </ng-template>
     </div>
-
-    <ng-template #content let-modal>
-        <div class="modal-header">
-            <h4 class="modal-title" id="modal-basic-title">Hesap Açma</h4>
-            <button type="button" class="btn btn-light" aria-label="Close" (click)="modal.dismiss('Cross click')">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="modal-body">
-            <form (submit)="hesapEkle($event)">
-                <div class="form-group">
-                    <label for="hesap-adi">Hesap Adı:</label>
-                    <input id="hesap-adi" name="hesapAdi" class="form-control" placeholder="Hesap adı giriniz">
-                </div>
-                <div class="form-group">
-                    <label for="hesap-acilis">Hesap Açılış Tutarı:</label>
-                    <input id="hesap-acilis" name="acilis" class="form-control"
-                        placeholder="Hesap açılış tutarı giriniz">
-                </div>
-                <div class="form-group">
-                    <label for="sel1">Para Birimi:</label>
-                    <select name="paraBirimi" class="form-control" id="sel1">
-                        <option>TL</option>
-                        <option>$</option>
-                        <option>€</option>
-                        <option>Altın</option>
-                    </select>
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-outline-success">Kaydet</button>
-                </div>
-            </form>
-        </div>
-
-    </ng-template>
 </div>

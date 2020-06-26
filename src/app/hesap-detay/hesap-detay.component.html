@@ -1,0 +1,72 @@
+<div class="d-flex gray-bg" id="wrapper">
+    <app-sidebar></app-sidebar>
+
+    <div class="wrapper wrapper-content">
+        <div class="col-12">
+            <div class="row justify-content-center">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Hesap Detayları</h3>
+                        </div>
+                        <div class="card-body">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Hesap Adı</th>
+                                        <th>Hesap Numarası</th>
+                                        <th>Toplam Tutar</th>
+                                        <th>Para Birimi</th>
+                                        <th>Oluşturulma Tarihi</th>
+                                    </tr>
+                                </thead>
+                                <tbody *ngIf="detay">
+                                    <td>{{detay.hesap_adi}}</td>
+                                    <td>{{detay.hesap_no}}</td>
+                                    <td>{{detay.toplam_tutar}}</td>
+                                    <td>{{detay.para_birimi}}</td>
+                                    <td>{{detay.created_at | date: 'HH:mm dd/MM/yyyy'}}</td>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 mt-3">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Hesap Hareketleri</h3>
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Alan Hesap Adı</th>
+                                        <th scope="col">Tutar</th>
+                                        <th scope="col">Para Birimi</th>
+                                        <th scope="col">Açıklama</th>
+                                        <th scope="col">İşlem Sonrası Bakiye</th>
+                                        <th scope="col">İşlem Tarihi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let hareket of hareketler; let i= index">
+                                        <th scope="row">{{i+1}} </th>
+                                        <td> {{hareket.alan_hesap}} </td>
+                                        <td> {{hareket.tutar}} </td>
+                                        <td> {{hareket.para_birimi}} </td>
+                                        <td> {{hareket.aciklama}} </td>
+                                        <td> {{hareket.bakiye}} </td>
+                                        <td> {{hareket.created_at | date: 'HH:mm dd/MM/yyyy'}} </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
