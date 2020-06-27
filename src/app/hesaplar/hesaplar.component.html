@@ -6,7 +6,8 @@
             <div class="row justify-content-center">
                 <div class="col-12">
                     <div class="card">
-                        <div class="card-header">
+                        <div class="card-header d-flex">
+                            <h3 class="mr-auto p-2">Hesaplar Arası Transfer</h3>
                             <button class="btn btn-primary" (click)="open(content)">Hesap Oluşturun</button>
                         </div>
                         <div class="card-body">
@@ -41,54 +42,53 @@
                 </div>
             </div>
         </div>
-
-        <ng-template #content let-modal>
-            <div class="modal-header">
-                <h4 class="modal-title" id="modal-basic-title">Hesap Açma</h4>
-                <button type="button" class="btn btn-light" aria-label="Close" (click)="modal.dismiss('Cross click')">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form (submit)="hesapEkle($event)">
-                    <div class="form-group">
-                        <label for="hesap-adi">Hesap Adı:</label>
-                        <input id="hesap-adi" name="hesapAdi" class="form-control" placeholder="Hesap adı giriniz">
-                    </div>
-                    <div class="form-group">
-                        <label for="hesap-acilis">Hesap Açılış Tutarı:</label>
-
-                        <div *ngIf="hesaplar.length > 0; then thenBlock else elseBlock"></div>
-                        <ng-template #thenBlock>
-                            <input id="hesap-acilis" name="acilis" class="form-control"
-                                placeholder="Hesap açılış tutarı giriniz">
-                        </ng-template>
-                        <ng-template #elseBlock>
-                            <input id="hesap-acilis" name="acilis" class="form-control" value="10000" disabled>
-                        </ng-template>
-
-                    </div>
-                    <div class="form-group">
-                        <label for="sel1">Para Birimi:</label>
-                        <select name="paraBirimi" class="form-control" id="sel1">
-                            <option>TL</option>
-                            <option>$</option>
-                            <option>€</option>
-                            <option>Altın</option>
-                        </select>
-                    </div>
-                    <div *ngIf="hesaplar.length > 0" class="form-group">
-                        <label for="sel1">Aktarılacak Hesap:</label>
-                        <select name="hesapAktar" class="form-control" id="sel2">
-                            <option *ngFor="let hesap of hesaplar" value="{{hesap.id}}">{{hesap.hesap_adi}}</option>
-                        </select>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-outline-success">Kaydet</button>
-                    </div>
-                </form>
-            </div>
-
-        </ng-template>
     </div>
+    <ng-template #content let-modal>
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Hesap Açma</h4>
+            <button type="button" class="btn btn-light" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form (submit)="hesapEkle($event)">
+                <div class="form-group">
+                    <label for="hesap-adi">Hesap Adı:</label>
+                    <input id="hesap-adi" name="hesapAdi" class="form-control" placeholder="Hesap adı giriniz">
+                </div>
+                <div class="form-group">
+                    <label for="hesap-acilis">Hesap Açılış Tutarı:</label>
+
+                    <div *ngIf="hesaplar.length > 0; then thenBlock else elseBlock"></div>
+                    <ng-template #thenBlock>
+                        <input id="hesap-acilis" name="acilis" class="form-control"
+                            placeholder="Hesap açılış tutarı giriniz">
+                    </ng-template>
+                    <ng-template #elseBlock>
+                        <input id="hesap-acilis" name="acilis" class="form-control" value="10000" disabled>
+                    </ng-template>
+
+                </div>
+                <div class="form-group">
+                    <label for="sel1">Para Birimi:</label>
+                    <select name="paraBirimi" class="form-control" id="sel1">
+                        <option>TL</option>
+                        <option>$</option>
+                        <option>€</option>
+                        <option>Altın</option>
+                    </select>
+                </div>
+                <div *ngIf="hesaplar.length > 0" class="form-group">
+                    <label for="sel1">Aktarılacak Hesap:</label>
+                    <select name="hesapAktar" class="form-control" id="sel2">
+                        <option *ngFor="let hesap of hesaplar" value="{{hesap.id}}">{{hesap.hesap_adi}}</option>
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-outline-success">Kaydet</button>
+                </div>
+            </form>
+        </div>
+
+    </ng-template>
 </div>

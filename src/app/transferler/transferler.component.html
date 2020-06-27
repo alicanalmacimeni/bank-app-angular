@@ -1,0 +1,102 @@
+<div class="d-flex gray-bg" id="wrapper">
+    <app-sidebar></app-sidebar>
+
+    <div class="wrapper wrapper-content">
+        <div class="col-12">
+            <div class="row justify-content-center">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header text-center">
+                            <h3>Hesaplar Arası Transfer</h3>
+                            <button class="btn btn-primary" (click)="open(content, 'virman')">Hesaplarım Arası</button>
+                            <button class="btn btn-primary ml-5" (click)="open(content, 'havale')">Başka Hesaba</button>
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Alan Hesap</th>
+                                        <th scope="col">Gönderen Hesap</th>
+                                        <th scope="col">Tutar</th>
+                                        <th scope="col">Para Birimi</th>
+                                        <th scope="col">Açıklama</th>
+                                        <th scope="col">İşlem Sonrası Bakiye</th>
+                                        <th scope="col">İşlem Tarihi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let hareket of hareketler; let i= index">
+                                        <th scope="row">{{i+1}} </th>
+                                        <td> {{hareket.alan_hesap}} </td>
+                                        <td> {{hareket.gonderen_hesap}} </td>
+                                        <td> {{hareket.tutar}} </td>
+                                        <td> {{hareket.para_birimi}} </td>
+                                        <td> {{hareket.aciklama}} </td>
+                                        <td> {{hareket.bakiye}} </td>
+                                        <td> {{hareket.created_at | date: 'HH:mm dd/MM/yyyy'}} </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <ng-template #content let-modal>
+        <div class="modal-header">
+
+            <h4 class="modal-title" id="modal-basic-title" *ngIf="selectModal === 'virman'">Virman</h4>
+            <h4 class="modal-title" id="modal-basic-title" *ngIf="selectModal === 'havale'">Havale</h4>
+            <button type="button" class="btn btn-light" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form (submit)="transfer($event)">
+                <div class="form-group">
+                    <label for="sel1">Gönderici Hesap:</label>
+                    <select name="gonderen" class="form-control" id="sel1">
+                        <option *ngFor="let hesap of hesaplar" value={{hesap.id}}>{{hesap.hesap_adi}}</option>
+                    </select>
+                </div>
+                <div class="form-group" *ngIf="selectModal==='virman'; else elseBlock">
+                    <label for="sel2">Alıcı Hesap:</label>
+                    <select name="alici" class="form-control" id="sel2">
+                        <option *ngFor="let hesap of hesaplar" value={{hesap.hesap_adi}}>
+                            {{hesap.hesap_adi}}</option>
+                    </select>
+                </div>
+                <ng-template #elseBlock>
+                    <div class="form-group">
+                        <label for="alici">Alıcı Hesap No:</label>
+                        <input id="alici" name="alici" class="form-control" placeholder="Hesap no giriniz">
+                    </div>
+                </ng-template>
+
+                <div class="form-group">
+                    <label for="tutar">Transfer Tutarı:</label>
+                    <div>
+                        <input id="tutar" name="tutar" class="form-control" placeholder="Transfer tutarı giriniz">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="sel1">Para Birimi:</label>
+                    <select name="paraBirimi" class="form-control" id="sel1">
+                        <option>TL</option>
+                        <option>$</option>
+                        <option>€</option>
+                        <option>Altın</option>
+                    </select>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-outline-success">Kaydet</button>
+                </div>
+            </form>
+        </div>
+
+    </ng-template>
+</div>

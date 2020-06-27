@@ -5,6 +5,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { HesaplarComponent } from './hesaplar/hesaplar.component';
 import { HesapDetayComponent } from './hesap-detay/hesap-detay.component';
+import { TransferlerComponent } from './transferler/transferler.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -12,6 +13,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'hesaplar', component: HesaplarComponent },
   { path: 'hesap-detay/:id', component: HesapDetayComponent },
+  { path: 'transferler', component: TransferlerComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
 ];
 

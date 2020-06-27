@@ -14,6 +14,7 @@ import { HesaplarComponent } from './hesaplar/hesaplar.component';
 import { FormsModule } from '@angular/forms';
 import { HesapDetayComponent } from './hesap-detay/hesap-detay.component';
 import { HesapHareketleriService } from './services/hesap-hareketleri.service';
+import { TransferlerComponent } from './transferler/transferler.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { HesapHareketleriService } from './services/hesap-hareketleri.service';
     RegisterComponent,
     SidebarComponent,
     HesaplarComponent,
-    HesapDetayComponent
+    HesapDetayComponent,
+    TransferlerComponent
   ],
   imports: [
     BrowserModule,

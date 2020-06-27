@@ -1,26 +1,35 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { Hesap, HesapService } from '../services/hesap.service';
+import { HesapService, Hesap } from '../services/hesap.service';
+import { HesapHareketleriService } from '../services/hesap-hareketleri.service';
 
 @Component({
-  selector: 'app-hesaplar',
-  templateUrl: './hesaplar.component.html',
-  styleUrls: ['./hesaplar.component.scss']
+  selector: 'app-transferler',
+  templateUrl: './transferler.component.html',
+  styleUrls: ['./transferler.component.scss']
 })
-export class HesaplarComponent implements OnInit {
+export class TransferlerComponent implements OnInit {
   hesaplar = [];
+  hareketler = [];
   closeResult = '';
+  selectModal = '';
+  user = JSON.parse(localStorage.getItem("user"));
 
   constructor(private modalService: NgbModal,
-    private hesapService: HesapService) { }
+    private hesapService: HesapService,
+    private hesapHareketleriService: HesapHareketleriService) { }
 
   ngOnInit(): void {
     this.hesapService.getAll().then(hesaplar => {
       this.hesaplar = hesaplar;
     })
+    this.hesapHareketleriService.kullaniciHareketleri(this.user.id).then(hareketler => {
+      this.hareketler = hareketler;
+    })
   }
 
-  open(content) {
+  open(content, tur) {
+    this.selectModal = tur;
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
@@ -38,26 +47,22 @@ export class HesaplarComponent implements OnInit {
     }
   }
 
-  hesapEkle(e) {
+  transfer(e) {
     e.preventDefault()
-    let user = JSON.parse(localStorage.getItem("user"));
     let todayDate: Date = new Date();
-    let hesap_no = this.hesapService.hesapNoOlustur();
 
-    let hesap_aktar: number = +(e.target.hesapAktar || 1).value
-
-    const hesap: Hesap = {
-      kullanici_id: user.id,
-      hesap_adi: e.target.hesapAdi.value,
-      toplam_tutar: +e.target.acilis.value,
+    const data = {
+      hesap_id: +e.target.gonderen.value,
+      hesap_adi: e.target.alici.value,
+      toplam_tutar: +e.target.tutar.value,
+      bakiye: 1111,
       para_birimi: e.target.paraBirimi.value,
-      hesap_no: hesap_no,
+      aciklama: this.selectModal,
       created_at: todayDate
     };
 
-    this.hesapService.hesapEkle(hesap, hesap_aktar).then(res => {
-      if (res)
-        this.ngOnInit();
+    this.hesapService.transfer(data).then(res => {
+      this.ngOnInit();
     })
   }
 

@@ -4,7 +4,9 @@ import { DexieService } from '../core/dexie.service';
 
 export interface Hareket {
   hesap_id: number,
+  kullanici_id: number;
   alan_hesap: string;
+  gonderen_hesap: string;
   tutar: number;
   bakiye: number;
   para_birimi: string;
@@ -21,16 +23,19 @@ export interface Hareket {
 })
 export class HesapHareketleriService {
   table: Dexie.Table;
-
+  user = JSON.parse(localStorage.getItem("user"));
   constructor(private dexieService: DexieService) {
     this.table = this.dexieService.table('hesap_hareketleri');
   }
 
-  olustur(data, hesap_id, aciklama, bakiye) {
+  olustur(data, hesap_id, gonderen, aciklama, bakiye) {
     let todayDate: Date = new Date();
+
     const hareket: Hareket = {
       hesap_id: hesap_id,
+      kullanici_id: this.user.id,
       alan_hesap: data.hesap_adi,
+      gonderen_hesap: gonderen,
       tutar: data.toplam_tutar,
       bakiye: bakiye,
       para_birimi: data.para_birimi,
@@ -42,5 +47,9 @@ export class HesapHareketleriService {
 
   hareketGetir(id) {
     return this.table.where('hesap_id').equals(id).reverse().sortBy('created_at');
+  }
+
+  kullaniciHareketleri(user_id){
+    return this.table.where('kullanici_id').equals(user_id).sortBy('created_at');
   }
 }
