@@ -8,7 +8,7 @@ import { HesapDetayComponent } from './hesap-detay/hesap-detay.component';
 import { TransferlerComponent } from './transferler/transferler.component';
 
 const routes: Routes = [
-  { path: 'home', component: HomeComponent },
+  { path: 'anasayfa', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'hesaplar', component: HesaplarComponent },

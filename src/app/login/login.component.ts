@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
 
     this.authService.loginUser(user).then((val: any) => {
       if (val) {
-        this.router.navigate(['/home']);
+        this.router.navigate(['/anasayfa']);
       } else {
         this.mesaj = "Kullanıcı adı veya şifre hatalı"
       }

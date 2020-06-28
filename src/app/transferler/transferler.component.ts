@@ -23,7 +23,7 @@ export class TransferlerComponent implements OnInit {
     this.hesapService.getAll().then(hesaplar => {
       this.hesaplar = hesaplar;
     })
-    this.hesapHareketleriService.kullaniciHareketleri(this.user.id).then(hareketler => {
+    this.hesapHareketleriService.kullaniciHareketleri(this.user.id, 0).then(hareketler => {
       this.hareketler = hareketler;
     })
   }

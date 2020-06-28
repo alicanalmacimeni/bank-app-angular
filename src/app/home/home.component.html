@@ -1,10 +1,46 @@
 <div class="d-flex gray-bg" id="wrapper">
     <app-sidebar></app-sidebar>
-    
-    <div id="page-content-wrapper">
-        <div class="container-fluid">
-            <h1 class="mt-4">Ana Sayfa</h1>
-          
+
+    <div class="wrapper wrapper-content">
+        <div class="col-12">
+            <h3 class="ml-3">Hesaplar</h3>
+            <app-hesap-kart></app-hesap-kart>
+        </div>
+
+        <div class="col-12 mt-3">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Son Hareketler</h3>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Alan Hesap</th>
+                                <th scope="col">Gönderen Hesap</th>
+                                <th scope="col">Tutar</th>
+                                <th scope="col">Para Birimi</th>
+                                <th scope="col">Açıklama</th>
+                                <th scope="col">İşlem Sonrası Bakiye</th>
+                                <th scope="col">İşlem Tarihi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let hareket of hareketler; let i= index">
+                                <th scope="row">{{i+1}} </th>
+                                <td> {{hareket.alan_hesap}} </td>
+                                <td> {{hareket.gonderen_hesap}} </td>
+                                <td> {{hareket.tutar}} </td>
+                                <td> {{hareket.para_birimi}} </td>
+                                <td> {{hareket.aciklama}} </td>
+                                <td> {{hareket.bakiye}} </td>
+                                <td> {{hareket.created_at | date: 'HH:mm dd/MM/yyyy'}} </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 </div>

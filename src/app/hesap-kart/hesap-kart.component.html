@@ -1,0 +1,19 @@
+<div class="row">
+
+    <div class="col-lg-4" *ngFor="let hesap of hesaplar">
+        <div class="card p-4 mt-2">
+            <div>
+                <span class="float-right">Hesap No: {{ hesap.hesap_no }}</span>
+                <h6>
+                    <a [routerLink]="['/hesap-detay', hesap.id]"
+                        class="card-title-anchor nounderline stretched-link">{{ hesap.hesap_adi }}</a>
+                </h6>
+            </div>
+            <div class="card-content p-3">
+                <h2 class="currency float-right mt-2">{{ hesap.para_birimi }}</h2>
+                <h1>{{ hesap.toplam_tutar }}</h1>
+            </div>
+        </div>
+    </div>
+
+</div>

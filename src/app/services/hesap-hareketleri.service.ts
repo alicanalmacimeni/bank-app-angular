@@ -49,7 +49,11 @@ export class HesapHareketleriService {
     return this.table.where('hesap_id').equals(id).reverse().sortBy('created_at');
   }
 
-  kullaniciHareketleri(user_id){
-    return this.table.where('kullanici_id').equals(user_id).sortBy('created_at');
+  kullaniciHareketleri(user_id, limit) {
+    if (limit !== 0) {
+      return this.table.where({ kullanici_id: user_id, aciklama: "Giden Transfer" }).limit(limit).reverse().sortBy('created_at');
+    }
+    return this.table.where({ kullanici_id: user_id, aciklama: "Giden Transfer" }).reverse().sortBy('created_at');
+
   }
 }

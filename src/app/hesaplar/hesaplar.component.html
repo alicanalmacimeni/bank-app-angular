@@ -7,7 +7,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header d-flex">
-                            <h3 class="mr-auto p-2">Hesaplar Arası Transfer</h3>
+                            <h3 class="mr-auto p-2">Hesaplar</h3>
                             <button class="btn btn-primary" (click)="open(content)">Hesap Oluşturun</button>
                         </div>
                         <div class="card-body">
@@ -28,7 +28,8 @@
                                     <tr *ngFor="let hesap of hesaplar; let i=index">
                                         <th scope="row">{{i+1}}</th>
                                         <td>
-                                            <a [routerLink]="['/hesap-detay', hesap.id]"> {{hesap.hesap_adi}}</a>
+                                            <a class="" [routerLink]="['/hesap-detay', hesap.id]">
+                                                {{hesap.hesap_adi}}</a>
                                         </td>
                                         <td>{{hesap.hesap_no}}</td>
                                         <td>{{hesap.toplam_tutar}}</td>

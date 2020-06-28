@@ -36,8 +36,8 @@ export class HesapService {
       if (hesap_aktar) {
         this.table.get({ id: hesap_aktar }).then(res => {
           let aktarilan = this.currencyConverter.converter(data.para_birimi, res.para_birimi, data.toplam_tutar); // para dönüşüm
-          this.table.update(hesap_aktar, { toplam_tutar: (res.toplam_tutar - aktarilan) }).then(() => {
-            this.hesapHareketleri.olustur(data, hesap_aktar, "", "Giden Transfer", res.toplam_tutar - aktarilan); // aktarılan hesap log
+          this.table.update(hesap_aktar, { toplam_tutar: (res.toplam_tutar - aktarilan) }).then(() => { 
+            this.hesapHareketleri.olustur(data, hesap_aktar, res.hesap_adi, "Giden Transfer", res.toplam_tutar - aktarilan); // aktarılan hesap log
           })
         })
       }
@@ -71,6 +71,10 @@ export class HesapService {
 
   getAll() {
     return this.table.toArray();
+  }
+
+  hesapGetir(user_id) {
+    return this.table.where('kullanici_id').equals(user_id).toArray();
   }
 
   hesapNoOlustur() {
