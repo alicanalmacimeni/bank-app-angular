@@ -32,7 +32,7 @@
                                                 {{hesap.hesap_adi}}</a>
                                         </td>
                                         <td>{{hesap.hesap_no}}</td>
-                                        <td>{{hesap.toplam_tutar}}</td>
+                                        <td>{{hesap.toplam_tutar | myCurrency}}</td>
                                         <td>{{hesap.para_birimi}}</td>
                                         <td>{{ hesap.created_at | date: 'HH:mm dd/MM/yyyy' }}</td>
                                     </tr>
@@ -52,11 +52,13 @@
             </button>
         </div>
         <div class="modal-body">
-            <form (submit)="hesapEkle($event)">
+            <form (submit)="hesapEkle($event)" name="myForm">
                 <div class="form-group">
                     <label for="hesap-adi">Hesap Adı:</label>
-                    <input id="hesap-adi" name="hesapAdi" class="form-control" placeholder="Hesap adı giriniz">
+                    <input id="hesap-adi" name="hesapAdi" class="form-control" placeholder="Hesap adı giriniz" required
+                        minlength="4">
                 </div>
+
                 <div class="form-group">
                     <label for="hesap-acilis">Hesap Açılış Tutarı:</label>
 

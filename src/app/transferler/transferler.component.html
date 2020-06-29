@@ -30,10 +30,10 @@
                                         <th scope="row">{{i+1}} </th>
                                         <td> {{hareket.alan_hesap}} </td>
                                         <td> {{hareket.gonderen_hesap}} </td>
-                                        <td> {{hareket.tutar}} </td>
+                                        <td [transferColor]="hareket.tutar"> {{hareket.tutar | myCurrency}} </td>
                                         <td> {{hareket.para_birimi}} </td>
                                         <td> {{hareket.aciklama}} </td>
-                                        <td> {{hareket.bakiye}} </td>
+                                        <td> {{hareket.bakiye | myCurrency}} </td>
                                         <td> {{hareket.created_at | date: 'HH:mm dd/MM/yyyy'}} </td>
                                     </tr>
                                 </tbody>

@@ -30,7 +30,7 @@ export class HesapHareketleriService {
 
   olustur(data, hesap_id, gonderen, aciklama, bakiye) {
     let todayDate: Date = new Date();
-
+    console.log(data)
     const hareket: Hareket = {
       hesap_id: hesap_id,
       kullanici_id: this.user.id,
@@ -51,9 +51,9 @@ export class HesapHareketleriService {
 
   kullaniciHareketleri(user_id, limit) {
     if (limit !== 0) {
-      return this.table.where({ kullanici_id: user_id, aciklama: "Giden Transfer" }).limit(limit).reverse().sortBy('created_at');
+      return this.table.where({ kullanici_id: user_id }).limit(limit).reverse().sortBy('created_at');
     }
-    return this.table.where({ kullanici_id: user_id, aciklama: "Giden Transfer" }).reverse().sortBy('created_at');
+    return this.table.where({ kullanici_id: user_id }).reverse().sortBy('created_at');
 
   }
 }

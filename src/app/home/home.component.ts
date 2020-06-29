@@ -10,12 +10,12 @@ import { HesapHareketleriService } from '../services/hesap-hareketleri.service';
 export class HomeComponent implements OnInit {
   user = JSON.parse(localStorage.getItem("user"));
   hareketler = [];
+  inputValue: number;
   constructor(private hesapHareketleriService: HesapHareketleriService) { }
 
   ngOnInit(): void {
     this.hesapHareketleriService.kullaniciHareketleri(this.user.id, 10).then(hareketler => {
       this.hareketler = hareketler;
-      console.log(hareketler)
     })
   }
 

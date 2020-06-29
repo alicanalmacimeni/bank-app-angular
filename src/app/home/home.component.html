@@ -11,6 +11,8 @@
             <div class="card">
                 <div class="card-header">
                     <h3>Son Hareketler</h3>
+                    <input type="text" [(ngModel)]="inputValue" placeholder="Bir şeyler yaz..">
+                    {{ inputValue | myCurrency }}
                 </div>
                 <div class="card-body">
                     <table class="table table-striped">

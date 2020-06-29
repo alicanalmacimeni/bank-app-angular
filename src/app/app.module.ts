@@ -16,6 +16,8 @@ import { HesapDetayComponent } from './hesap-detay/hesap-detay.component';
 import { HesapHareketleriService } from './services/hesap-hareketleri.service';
 import { TransferlerComponent } from './transferler/transferler.component';
 import { HesapKartComponent } from './hesap-kart/hesap-kart.component';
+import { MyCurrencyPipe } from './pipes/my-currency.pipe';
+import { TransferColorDirective } from './transfer-color.directive';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import { HesapKartComponent } from './hesap-kart/hesap-kart.component';
     HesaplarComponent,
     HesapDetayComponent,
     TransferlerComponent,
-    HesapKartComponent
+    HesapKartComponent,
+    MyCurrencyPipe,
+    TransferColorDirective
   ],
   imports: [
     BrowserModule,

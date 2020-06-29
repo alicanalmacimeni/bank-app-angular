@@ -13,6 +13,7 @@ export class TransferlerComponent implements OnInit {
   hareketler = [];
   closeResult = '';
   selectModal = '';
+  color = 'purple';
   user = JSON.parse(localStorage.getItem("user"));
 
   constructor(private modalService: NgbModal,
@@ -55,9 +56,10 @@ export class TransferlerComponent implements OnInit {
       hesap_id: +e.target.gonderen.value,
       hesap_adi: e.target.alici.value,
       toplam_tutar: +e.target.tutar.value,
-      bakiye: 1111,
+      bakiye: 0,
       para_birimi: e.target.paraBirimi.value,
       aciklama: this.selectModal,
+      islem: "",
       created_at: todayDate
     };
 

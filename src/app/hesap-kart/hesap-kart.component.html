@@ -11,7 +11,7 @@
             </div>
             <div class="card-content p-3">
                 <h2 class="currency float-right mt-2">{{ hesap.para_birimi }}</h2>
-                <h1>{{ hesap.toplam_tutar }}</h1>
+                <h1>{{ hesap.toplam_tutar | myCurrency }}</h1>
             </div>
         </div>
     </div>
